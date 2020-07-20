@@ -6,7 +6,10 @@ var redButton,blueButton,greenButton,yellowButton,whiteButton,rainbowButton;
 var rainbow = false;
 var changeR = "no", changeG = "no", changeB = "no"; 
 var chanceR = "no", chanceG = "no", chanceB = "no";
-var colorE;
+var colorE, canvasColourE;
+var gridButton, gx, gy, removeGrid;
+var canvasColour = "black", whiteCanvas, blackCanvas, greenCanvas, blueCanvas;
+var B1, B2;
 
 function setup() {
     canvas = createCanvas(1100,600);
@@ -22,6 +25,27 @@ function setup() {
     clearButton = createButton("clear")
     clearButton.position(1150,70)
     clearButton.mousePressed(clearDrawing);
+
+    gx = createSprite(1100/2,600/2,1100,1);
+    gx.shapeColor = "white";
+    gx.visible = false;
+    gy = createSprite(1100/2,600/2,1,600);
+    gy.shapeColor = "white";
+    gy.visible = false;
+
+    gridButton = createButton("grids");
+    gridButton.position(1210,30);
+    gridButton.mousePressed(()=>{
+      gx.visible = true;
+      gy.visible = true;
+    });
+
+    removeGrid = createButton("remove grids");
+    removeGrid.position(1210,70);
+    removeGrid.mousePressed(()=>{
+      gx.visible = false;
+      gy.visible = false;
+    })
     
     redButton = createButton("red");
     redButton.position(180,605);
@@ -98,10 +122,39 @@ function setup() {
 
     colorE = createElement("h1","COLOUR :")
     colorE.position(5,590);
-    /*
-    var ref = database.ref("drawings")
-    ref.on("value", gotData, errData)
-    */
+
+    canvasColourE = createElement("h2", "Canvas Colour :")
+    canvasColourE.position(400,595);
+
+    whiteCanvas = createButton("white");
+    whiteCanvas.position(580,605);
+    whiteCanvas.mousePressed(()=>{
+      canvasColour = "white";
+    });
+
+    blackCanvas = createButton("black");
+    blackCanvas.position(580,630);
+    blackCanvas.mousePressed(()=>{
+      canvasColour = "black";
+    });
+
+    blueCanvas = createButton("blue");
+    blueCanvas.position(640,605);
+    blueCanvas.mousePressed(()=>{
+      canvasColour = "blue";
+    });
+
+    greenCanvas = createButton("green");
+    greenCanvas.position(640,630);
+    greenCanvas.mousePressed(()=>{
+      canvasColour = "green";
+    });
+
+    B1 = createSprite(1100/2,599.9,1100,1);
+    B1.shapeColor = "black";
+    B2 = createSprite(1099.9,600/2,1,600);
+    B2.shapeColor = "black";
+    
 }
 
 function startPath(){
@@ -115,7 +168,7 @@ function endPath(){
 }
 
 function draw() {
-    background(20);
+    background(canvasColour);
 
     if (rainbow === true) {
       if(r >= 255 && b === 6){
@@ -219,7 +272,7 @@ function draw() {
       }
       endShape();
     };
-  
+    drawSprites();
 }
 
 function saveDrawing(){
@@ -229,6 +282,7 @@ function saveDrawing(){
         red : r,
         green : g,
         blue : b,
+        canvas : canvasColour,
     }
     var result = ref.push(data , dataSent);
     console.log(result.key);
@@ -280,5 +334,4 @@ function showDrawing(){
       drawing = dbDrawing.drawing;
       console.log(drawing);
     }
-
 }

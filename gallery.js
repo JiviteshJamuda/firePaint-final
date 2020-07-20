@@ -1,42 +1,20 @@
 var database;
 var drawing = [], currentPath = [], isDrawing = false;
 var saveButton;
-var dbColourRed, dbColourGreen,dbColourBlue, r = 255, g = 255, b = 255;
+var dbColourRed, dbColourGreen, dbColourBlue, dbCanvasColour, r = 255, g = 255, b = 255, canvasColour = "black";
 
 function setup() {
     canvas = createCanvas(1100,600);
     database = firebase.database();
     canvas.parent("canvascontainer");
-    /*
-   
-    canvas.mousePressed(startPath);
-    canvas.mouseReleased(endPath);
     
-    saveButton = createButton("save")
-    saveButton.position(1150,30)
-    saveButton.mousePressed(saveDrawing);
-
-    clearButton = createButton("clear")
-    clearButton.position(1150,70)
-    clearButton.mousePressed(clearDrawing);
-    */
     var ref = database.ref("drawings")
     ref.on("value", gotData, errData)
     
 }
-/*
-function startPath(){
-    isDrawing = true;
-    currentPath = [];
-    drawing.push(currentPath)
-}
 
-function endPath(){
-    isDrawing = false;
-}
-*/
 function draw() {
-    background(20);
+    background(canvasColour);
     
     if(isDrawing){
       var point = {
@@ -117,11 +95,13 @@ function showDrawing(){
       dbColourRed = dbDrawing.red;
       dbColourGreen = dbDrawing.green;
       dbColourBlue = dbDrawing.blue;
+      dbCanvasColour = dbDrawing.canvas;
 
       r = dbColourRed;
       g = dbColourGreen;
       b = dbColourBlue;
-      
+      canvasColour = dbCanvasColour;
+
       console.log(drawing);
     }
 
