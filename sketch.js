@@ -26,41 +26,65 @@ function setup() {
     redButton = createButton("red");
     redButton.position(180,605);
     redButton.mousePressed(()=>{
+      rainbow = false;
       r = 255;
       g = 0;
       b = 0;
+      chanceR = "no";
+      chanceG = "no";
+      chanceB = "no";
     });
 
     blueButton = createButton("blue");
     blueButton.position(180,630)
     blueButton.mousePressed(()=>{
+      rainbow = false;
       r = 0;
       g = 0;
       b = 255;
+      chanceR = "no";
+      chanceG = "no";
+      chanceB = "no";
+
     });
 
     whiteButton = createButton("white");
     whiteButton.position(240,605);
     whiteButton.mousePressed(()=>{
+      rainbow = false;
       r = 255;
       g = 255;
       b = 255;
+      chanceR = "no";
+      chanceG = "no";
+      chanceB = "no";
+
     });
 
     greenButton = createButton("green");
     greenButton.position(240,630)
     greenButton.mousePressed(()=>{
+      rainbow = false;
       r = 0;
       g = 255;
       b = 0;
+      chanceR = "no";
+      chanceG = "no";
+      chanceB = "no";
+
     });
 
     yellowButton = createButton("yellow");
     yellowButton.position(300,605);
     yellowButton.mousePressed(()=>{
+      rainbow = false;
       r = 255;
       g = 255;
       b = 0;
+      chanceR = "no";
+      chanceG = "no";
+      chanceB = "no";
+
     });
 
     rainbowButton = createButton("rainbow");
@@ -141,7 +165,6 @@ function draw() {
         g = 0;
         b = 6;
       }
-
     };
 
     if(r >= 255 && chanceR === "no"){
@@ -176,7 +199,6 @@ function draw() {
     } else if(changeB === "minus"){
       b = b - 2;
     };
-    console.log(r,g,b)
 
     if(isDrawing){
       var point = {
@@ -255,7 +277,7 @@ function showDrawing(){
 
     function oneDrawing(data){
       var dbDrawing = data.val();
-      drawing = dbDrawing.drawing 
+      drawing = dbDrawing.drawing;
       console.log(drawing);
     }
 

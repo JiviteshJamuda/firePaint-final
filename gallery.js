@@ -1,6 +1,7 @@
 var database;
 var drawing = [], currentPath = [], isDrawing = false;
 var saveButton;
+var dbColourRed, dbColourGreen,dbColourBlue, r = 255, g = 255, b = 255;
 
 function setup() {
     canvas = createCanvas(1100,600);
@@ -45,7 +46,7 @@ function draw() {
       currentPath.push(point);
     }
 
-    stroke(255);
+    stroke(r,g,b);
     strokeWeight(2);
     noFill();
     for (var i = 0; i < drawing.length; i++){
@@ -111,7 +112,16 @@ function showDrawing(){
 
     function oneDrawing(data){
       var dbDrawing = data.val();
-      drawing = dbDrawing.drawing 
+      drawing = dbDrawing.drawing;
+
+      dbColourRed = dbDrawing.red;
+      dbColourGreen = dbDrawing.green;
+      dbColourBlue = dbDrawing.blue;
+
+      r = dbColourRed;
+      g = dbColourGreen;
+      b = dbColourBlue;
+      
       console.log(drawing);
     }
 
